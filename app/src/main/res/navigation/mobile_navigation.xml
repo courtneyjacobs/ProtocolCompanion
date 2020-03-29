@@ -19,7 +19,11 @@
         android:id="@+id/nav_createstudy"
         android:name="com.example.protocolcompanion.ui.createstudy.CreateStudyFragment"
         android:label="@string/menu_createstudy"
-        tools:layout="@layout/fragment_createstudy" />
+        tools:layout="@layout/fragment_createstudy" >
+        <action
+            android:id="@+id/createToHomeAction"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_loadstudy"

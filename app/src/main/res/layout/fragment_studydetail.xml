@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="409dp"
-        android:layout_height="341dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,16 +23,16 @@
                 android:id="@+id/text_studydetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_studydetail"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:text="@string/menu_studydetail" />
 
             <EditText
                 android:id="@+id/studyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/studyname"
-                android:inputType="text"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/studyID"
@@ -95,6 +96,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/saveEditStudy" />
 
+            <Button
+                android:id="@+id/sendToWatchButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sendToWatch" />
         </LinearLayout>
     </ScrollView>
 

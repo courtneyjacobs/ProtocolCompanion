@@ -85,6 +85,7 @@ public class StudyViewModel extends ViewModel {
         switch (name) {
             case "id":
                 mId.setValue(value);
+                break;
             case "name":
                 mName.setValue(value);
                 break;
@@ -177,7 +178,7 @@ public class StudyViewModel extends ViewModel {
             Study s = new Study(Objects.requireNonNull(mId.getValue()), mName.getValue(), mGPS.getValue(),
                     mAcceleration.getValue(), mHR.getValue(), mRegion.getValue(),
                     mBucket.getValue(), mFolder.getValue());
-            Study.ITEMS.add(s);
+            Study.addNewItem(s);
         }
         catch (JSONException e) {
             e.printStackTrace();

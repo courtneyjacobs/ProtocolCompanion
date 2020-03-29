@@ -27,6 +27,7 @@ import java.util.Objects;
 
 public class LoadStudyFragment extends Fragment {
 
+    // QR Code from tutorial on Mobile Vision API https://codelabs.developers.google.com/codelabs/bar-codes/
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

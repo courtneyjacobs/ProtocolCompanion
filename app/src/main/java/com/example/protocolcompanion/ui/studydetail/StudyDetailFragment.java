@@ -53,6 +53,7 @@ public class StudyDetailFragment extends Fragment {
         Button saveButton = root.findViewById(R.id.saveEditStudyButton);
         final EditText studyName = root.findViewById(R.id.studyName);
         final TextView studyId = root.findViewById(R.id.studyID);
+        Button sendButton = root.findViewById(R.id.sendToWatchButton);
 
         // Populate initial values (VM -> view)
         // name
@@ -66,7 +67,8 @@ public class StudyDetailFragment extends Fragment {
         studyViewModel.getText("id").observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                studyId.setText(s);
+                String text = getString(R.string.idDisplay, s);
+                studyId.setText(text);
             }
         });
         // region

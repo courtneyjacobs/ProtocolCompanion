@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.protocolcompanion.R;
 import com.example.protocolcompanion.Study;
@@ -59,7 +60,8 @@ public class CreateStudyFragment extends Fragment {
         studyViewModel.getText("id").observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                studyId.setText(s);
+                String text = getString(R.string.idDisplay, s);
+                studyId.setText(text);
             }
         });
         // name
@@ -141,10 +143,11 @@ public class CreateStudyFragment extends Fragment {
                     FileWriter fileWriter = new FileWriter(exportFile, false);
                     fileWriter.write(studyViewModel.fullJSONObject.toString());
                     fileWriter.close();
+                    // Go back to home
+                    Navigation.findNavController(v).navigate(R.id.nav_home);
                     // Create Toast notification
                     Context context = getContext();
                     CharSequence text = "Study successfully created!";
-
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
