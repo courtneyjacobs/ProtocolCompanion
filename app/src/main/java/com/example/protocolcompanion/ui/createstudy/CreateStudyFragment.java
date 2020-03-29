@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.protocolcompanion.R;
+import com.example.protocolcompanion.Study;
 import com.example.protocolcompanion.StudyViewModel;
 
 import org.json.JSONException;
@@ -36,6 +38,9 @@ public class CreateStudyFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         studyViewModel = new ViewModelProvider(requireActivity()).get(StudyViewModel.class);
+        // Get next available id by checking length of study list
+        final String nextID = String.valueOf(Study.getListSize());
+        studyViewModel.setCurrentStudy(new Study(nextID));
 
         View root = inflater.inflate(R.layout.fragment_createstudy, container, false);
 
@@ -47,7 +52,23 @@ public class CreateStudyFragment extends Fragment {
         final EditText bucketText = root.findViewById(R.id.bucketText);
         final EditText folderText = root.findViewById(R.id.folderText);
         Button saveButton = root.findViewById(R.id.saveNewStudyButton);
+        final EditText studyName = root.findViewById(R.id.studyName);
+        final TextView studyId = root.findViewById(R.id.studyID);
 
+        // id
+        studyViewModel.getText("id").observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                studyId.setText(s);
+            }
+        });
+        // name
+        studyViewModel.getText("name").observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                studyName.setText(s);
+            }
+        });
         // region
         studyViewModel.getText("region").observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -98,31 +119,12 @@ public class CreateStudyFragment extends Fragment {
         });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { // TODO: this overwrites all objects. find a way to edit the json.
+            public void onClick(View v) {
                 File exportFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
-                String nextID = "0";
-
-                // Get next available id by reading JSON and finding max id // TODO: is this the best way?
-                try {
-                    JSONObject fileJSON = new JSONObject(String.valueOf(exportFile));
-                    int maxId = 0;
-                    Iterator keys = fileJSON.keys();
-                    while(keys.hasNext()) {
-                        String currentKey = (String) keys.next();
-                        System.out.println("key: " + currentKey);
-                        int currentID = Integer.parseInt(currentKey);
-                        if (currentID > maxId) {
-                            maxId = currentID;
-                        }
-                    }
-                    nextID = String.valueOf(++maxId);
-                }
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
                 // Set appropriate values in VM
                 studyViewModel.setText("id", nextID);
+                studyViewModel.setText("name", studyName.getText().toString());
                 studyViewModel.setText("region", regionText.getText().toString());
                 studyViewModel.setText("bucket", bucketText.getText().toString());
                 studyViewModel.setText("folder", folderText.getText().toString());
@@ -130,16 +132,19 @@ public class CreateStudyFragment extends Fragment {
                 studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
                 studyViewModel.setSwitch("hr", HRSwitch.isChecked());
 
+                studyViewModel.updateAndAddCurrentStudy();
+
                 // Open file and overwrite changes
                 try {
                     JSONObject newStudyJSONObject = studyViewModel.exportJSON();
                     studyViewModel.fullJSONObject.put(nextID, newStudyJSONObject);
                     FileWriter fileWriter = new FileWriter(exportFile, false);
-                    System.out.println(studyViewModel.fullJSONObject.toString()); // TODO: remove
                     fileWriter.write(studyViewModel.fullJSONObject.toString());
                     fileWriter.close();
+                    // Create Toast notification
                     Context context = getContext();
                     CharSequence text = "Study successfully created!";
+
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();

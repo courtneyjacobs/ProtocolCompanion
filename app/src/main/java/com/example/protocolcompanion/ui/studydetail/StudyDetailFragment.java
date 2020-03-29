@@ -1,5 +1,6 @@
 package com.example.protocolcompanion.ui.studydetail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +51,7 @@ public class StudyDetailFragment extends Fragment {
         final EditText bucketText = root.findViewById(R.id.bucketText);
         final EditText folderText = root.findViewById(R.id.folderText);
         Button saveButton = root.findViewById(R.id.saveEditStudyButton);
-        final TextView studyName = root.findViewById(R.id.studyName);
+        final EditText studyName = root.findViewById(R.id.studyName);
         final TextView studyId = root.findViewById(R.id.studyID);
 
         // Populate initial values (VM -> view)
@@ -126,15 +128,26 @@ public class StudyDetailFragment extends Fragment {
                 studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
                 studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
                 studyViewModel.setSwitch("hr", HRSwitch.isChecked());
+                studyViewModel.setText("name", studyName.getText().toString());
+
+                studyViewModel.updateCurrentStudy();
 
                 // Open file and overwrite changes to the current study
                 JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
+                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
                 try {
                     studyViewModel.fullJSONObject.remove(currentId);
                     studyViewModel.fullJSONObject.put(currentId, editedStudyJSONObject);
                     FileWriter fileWriter = new FileWriter(JSONFile, false);
                     fileWriter.write(studyViewModel.fullJSONObject.toString());
                     fileWriter.close();
+                    // Create Toast notification
+                    Context context = getContext();
+                    CharSequence text = "Study successfully saved!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }

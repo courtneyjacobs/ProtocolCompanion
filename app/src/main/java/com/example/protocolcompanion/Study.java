@@ -26,16 +26,41 @@ public class Study {
         this.folder = folder;
     }
 
+    public Study(String id) {
+        this.id = id;
+        this.name = " ";
+        this.gps = false;
+        this.acceleration = false;
+        this.hr = false;
+        this.region = " ";
+        this.bucket = " ";
+        this.folder = " ";
+    }
+
     public static List<Study> ITEMS = new ArrayList<>();
 
     static {
-        // Add some sample items.
+        // Add sample item
+        addSampleItem(0);
+
+        /*// Add some sample items.
         for (int i = 0; i <= 3; i++) {
-            addItem(i);
-        }
+        }*/
     }
-    private static void addItem(int i) {
-        ITEMS.add(new Study(String.valueOf(i), "test" + i, true, false, false, "r" + i, "b1" + i, "f1" + i));
+    private static void addSampleItem(int i) {
+        ITEMS.add(new Study(String.valueOf(i), "Default Study", true, false, false, "r" + i, "b1" + i, "f1" + i));
+    }
+
+    static void addNewItem(Study s) {
+        ITEMS.add(s);
+    }
+
+    static void updateItem(int i, Study s) {
+        ITEMS.set(i, s);
+    }
+
+    public static int getListSize() {
+        return ITEMS.size();
     }
 
     @NonNull
@@ -60,51 +85,51 @@ public class Study {
         this.name = name;
     }
 
-    public Boolean getGps() {
+    Boolean getGps() {
         return gps;
     }
 
-    public void setGps(Boolean gps) {
+    void setGps(Boolean gps) {
         this.gps = gps;
     }
 
-    public Boolean getAcceleration() {
+    Boolean getAcceleration() {
         return acceleration;
     }
 
-    public void setAcceleration(Boolean acceleration) {
+    void setAcceleration(Boolean acceleration) {
         this.acceleration = acceleration;
     }
 
-    public Boolean getHr() {
+    Boolean getHr() {
         return hr;
     }
 
-    public void setHr(Boolean hr) {
+    void setHr(Boolean hr) {
         this.hr = hr;
     }
 
-    public String getRegion() {
+    String getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    void setRegion(String region) {
         this.region = region;
     }
 
-    public String getBucket() {
+    String getBucket() {
         return bucket;
     }
 
-    public void setBucket(String bucket) {
+    void setBucket(String bucket) {
         this.bucket = bucket;
     }
 
-    public String getFolder() {
+    String getFolder() {
         return folder;
     }
 
-    public void setFolder(String folder) {
+    void setFolder(String folder) {
         this.folder = folder;
     }
 }

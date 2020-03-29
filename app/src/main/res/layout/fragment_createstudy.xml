@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,6 +22,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_createstudy" />
+
+            <EditText
+                android:id="@+id/studyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/studyname"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/studyID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <Switch
                 android:id="@+id/GPSSwitch"
@@ -55,7 +68,7 @@
                 android:ems="10"
                 android:hint="@string/region"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/bucketText"
@@ -64,7 +77,7 @@
                 android:ems="10"
                 android:hint="@string/bucket"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/folderText"
@@ -73,7 +86,7 @@
                 android:ems="10"
                 android:hint="@string/folder"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
             <Button
                 android:id="@+id/saveNewStudyButton"

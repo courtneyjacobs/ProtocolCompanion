@@ -11,6 +11,7 @@
     <string name="menu_createstudy">Create a Study</string>
     <string name="menu_loadstudy">Load a Study</string>
     <string name="menu_studydetail">Study Details</string>
+    <string name="studyname">Study Name</string>
 
     <string name="region">Region</string>
     <string name="bucket">Bucket</string>
