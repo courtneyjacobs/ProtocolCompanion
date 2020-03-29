@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.protocolcompanion.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_list">
+        <action
+            android:id="@+id/detailAction"
+            app:destination="@id/nav_studydetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_createstudy"
+        android:name="com.example.protocolcompanion.ui.createstudy.CreateStudyFragment"
+        android:label="@string/menu_createstudy"
+        tools:layout="@layout/fragment_createstudy" />
+
+    <fragment
+        android:id="@+id/nav_loadstudy"
+        android:name="com.example.protocolcompanion.ui.loadstudy.LoadStudyFragment"
+        android:label="@string/menu_loadstudy"
+        tools:layout="@layout/fragment_loadstudy" />
+    <fragment
+        android:id="@+id/nav_studydetail"
+        android:name="com.example.protocolcompanion.ui.studydetail.StudyDetailFragment"
+        android:label="@string/menu_studydetail"
+        tools:layout="@layout/fragment_createstudy" >
+        <argument
+            android:name="currentId"
+            app:argType="string" />
+    </fragment>
+</navigation>
