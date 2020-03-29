@@ -21,6 +21,8 @@
     <string name="hr">Heart Rate</string>
     <string name="saveNewStudy">Save New Study</string>
     <string name="saveEditStudy">Save Study</string>
+    <string name="qrError">Detector failed to set up.</string>
+    <string name="qrProcess">Process</string>
 
 
 
