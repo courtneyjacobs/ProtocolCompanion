@@ -26,7 +26,7 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     MyStudyRecyclerViewAdapter(HashMap<String,Study> items) {
-        mValues = new ArrayList<>(items.values());
+        mValues = new ArrayList<>(Study.ITEMS.values());
         Collections.sort(mValues, new Comparator<Study>() {
             @Override
             public int compare(Study s1, Study s2) {
@@ -36,7 +36,6 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
                 return s1.getId().compareTo(s2.getId());
             }
         });
-
     }
 
     @NonNull
@@ -50,13 +49,13 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mIdView.setText(holder.mItem.getId());
         holder.mContentView.setText(mValues.get(position).getName());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragmentDirections.DetailAction action = HomeFragmentDirections.detailAction(String.valueOf(position));
-                action.setCurrentId(String.valueOf(position));
+                HomeFragmentDirections.DetailAction action = HomeFragmentDirections.detailAction(holder.mItem.getId());
+                action.setCurrentId(holder.mItem.getId());
                 Navigation.findNavController(v).navigate(action);
             }
         });

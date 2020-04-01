@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -40,7 +41,14 @@ public class CreateStudyFragment extends Fragment {
 
         studyViewModel = new ViewModelProvider(requireActivity()).get(StudyViewModel.class);
         // Get next available id by checking length of study list
-        final String nextID = String.valueOf(Study.getSize());
+        final String nextID;
+        if(Study.getSize() > 0) {
+            nextID = String.valueOf(Study.getMaxID() + 1);
+            System.out.println("*** " + nextID);
+        }
+        else {
+            nextID = "0";
+        }
         studyViewModel.setCurrentStudy(new Study(nextID));
 
         View root = inflater.inflate(R.layout.fragment_createstudy, container, false);

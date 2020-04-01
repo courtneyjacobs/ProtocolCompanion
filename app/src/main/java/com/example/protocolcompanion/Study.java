@@ -2,9 +2,9 @@ package com.example.protocolcompanion;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 public class Study {
     private String id;
@@ -55,6 +55,10 @@ public class Study {
 
     public static int getSize() {
         return ITEMS.size();
+    }
+
+    public static int getMaxID() {
+        return Integer.parseInt(Collections.max(ITEMS.keySet()));
     }
 
     public static Study getStudy(String id) {

@@ -23,8 +23,9 @@
     <string name="saveEditStudy">Save Study</string>
     <string name="qrError">Detector failed to set up.</string>
     <string name="qrProcess">Process</string>
-    <string name="sendToWatch">Send Study to Watch</string>
+    <string name="sendToWatch">Save and Send to Watch</string>
     <string name="idDisplay">Study ID: %s</string>
+    <string name="deleteButton">Delete Study</string>
 
 
 

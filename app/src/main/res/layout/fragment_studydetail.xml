@@ -97,10 +97,17 @@
                 android:text="@string/saveEditStudy" />
 
             <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deleteButton" />
+
+            <Button
                 android:id="@+id/sendToWatchButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sendToWatch" />
+
         </LinearLayout>
     </ScrollView>
 

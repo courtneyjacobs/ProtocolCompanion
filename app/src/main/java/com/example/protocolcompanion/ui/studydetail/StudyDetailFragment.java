@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.protocolcompanion.R;
 import com.example.protocolcompanion.Study;
@@ -54,6 +55,7 @@ public class StudyDetailFragment extends Fragment {
         final EditText studyName = root.findViewById(R.id.studyName);
         final TextView studyId = root.findViewById(R.id.studyID);
         Button sendButton = root.findViewById(R.id.sendToWatchButton);
+        Button deleteButton = root.findViewById(R.id.deleteButton);
 
         // Populate initial values (VM -> view)
         // name
@@ -151,6 +153,69 @@ public class StudyDetailFragment extends Fragment {
                     toast.show();
 
                 } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Set appropriate values in VM
+                studyViewModel.setText("region", regionText.getText().toString());
+                studyViewModel.setText("bucket", bucketText.getText().toString());
+                studyViewModel.setText("folder", folderText.getText().toString());
+                studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
+                studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
+                studyViewModel.setSwitch("hr", HRSwitch.isChecked());
+                studyViewModel.setText("name", studyName.getText().toString());
+
+                studyViewModel.updateCurrentStudy();
+
+                // Open file and overwrite changes to the current study
+                JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
+                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
+                try {
+                    studyViewModel.fullJSONObject.remove(currentId);
+                    studyViewModel.fullJSONObject.put(currentId, editedStudyJSONObject);
+                    FileWriter fileWriter = new FileWriter(JSONFile, false);
+                    fileWriter.write(studyViewModel.fullJSONObject.toString());
+                    fileWriter.close();
+                    // Create Toast notification
+                    Context context = getContext();
+                    CharSequence text = "Study successfully saved!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                studyViewModel.deleteCurrentStudy();
+
+                // Open file and overwrite changes to the current study
+                JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
+                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
+                try {
+                    studyViewModel.fullJSONObject.remove(currentId);
+                    FileWriter fileWriter = new FileWriter(JSONFile, false);
+                    fileWriter.write(studyViewModel.fullJSONObject.toString());
+                    fileWriter.close();
+                    // Go back to home
+                    Navigation.findNavController(v).navigate(R.id.nav_home);
+                    // Create Toast notification
+                    Context context = getContext();
+                    CharSequence text = "Study successfully deleted!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
