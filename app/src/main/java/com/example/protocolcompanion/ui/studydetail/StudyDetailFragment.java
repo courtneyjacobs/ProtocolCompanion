@@ -41,7 +41,7 @@ public class StudyDetailFragment extends Fragment {
         // Get current id from list fragment
         assert getArguments() != null;
         final String currentId = StudyDetailFragmentArgs.fromBundle(getArguments()).getCurrentId();
-        studyViewModel.setCurrentStudy(Study.ITEMS.get(Integer.parseInt(currentId)));
+        studyViewModel.setCurrentStudy(Study.getStudy(currentId));
 
         // Get elements
         final Switch GPSSwitch = root.findViewById(R.id.GPSSwitch);
