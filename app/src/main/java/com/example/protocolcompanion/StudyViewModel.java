@@ -11,14 +11,14 @@ import java.util.Iterator;
 
 public class StudyViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mName = new MutableLiveData<>(" ");
+    private final MutableLiveData<String> mName = new MutableLiveData<>("");
     private final MutableLiveData<String> mId = new MutableLiveData<>("0");
     private final MutableLiveData<Boolean> mGPS = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> mAcceleration = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> mHR = new MutableLiveData<>(false);
-    private final MutableLiveData<String> mRegion = new MutableLiveData<>(" ");
-    private final MutableLiveData<String> mBucket = new MutableLiveData<>(" ");
-    private final MutableLiveData<String> mFolder = new MutableLiveData<>(" ");
+    private final MutableLiveData<String> mRegion = new MutableLiveData<>("");
+    private final MutableLiveData<String> mBucket = new MutableLiveData<>("");
+    private final MutableLiveData<String> mFolder = new MutableLiveData<>("");
 
     public JSONObject fullJSONObject;
     private Study currentStudy;

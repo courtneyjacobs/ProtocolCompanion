@@ -29,13 +29,13 @@ public class Study {
 
     public Study(String id) {
         this.id = id;
-        this.name = " ";
+        this.name = "";
         this.gps = false;
         this.acceleration = false;
         this.hr = false;
-        this.region = " ";
-        this.bucket = " ";
-        this.folder = " ";
+        this.region = "";
+        this.bucket = "";
+        this.folder = "";
     }
 
     public static HashMap<String, Study> ITEMS = new HashMap<>();

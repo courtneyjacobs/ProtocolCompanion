@@ -38,6 +38,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/probesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/probesText" />
+
             <Switch
                 android:id="@+id/GPSSwitch"
                 android:layout_width="match_parent"
@@ -56,11 +63,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/hr" />
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="409dp"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/remoteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/remoteText" />
 
             <EditText
                 android:id="@+id/regionText"
@@ -93,6 +101,7 @@
                 android:id="@+id/saveNewStudyButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:text="@string/saveNewStudy" />
 
         </LinearLayout>

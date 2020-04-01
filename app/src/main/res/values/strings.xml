@@ -6,13 +6,11 @@
     <string name="nav_header_subtitle">Subtitle</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Your Studies</string>
     <string name="menu_createstudy">Create a Study</string>
     <string name="menu_loadstudy">Load Study from QR Code</string>
     <string name="menu_studydetail">Study Details</string>
     <string name="studyname">Study Name</string>
-
     <string name="region">Region</string>
     <string name="bucket">Bucket</string>
     <string name="folder">Folder</string>
@@ -26,6 +24,8 @@
     <string name="sendToWatch">Save and Send to Watch</string>
     <string name="idDisplay">Study ID: %s</string>
     <string name="deleteButton">Delete Study</string>
+    <string name="probesText">Probes</string>
+    <string name="remoteText">Remote Storage Settings</string>
 
 
 
