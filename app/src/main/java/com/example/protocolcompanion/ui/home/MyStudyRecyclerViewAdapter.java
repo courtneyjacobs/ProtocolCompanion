@@ -16,6 +16,7 @@ import com.example.protocolcompanion.Study;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +27,16 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
     @RequiresApi(api = Build.VERSION_CODES.N)
     MyStudyRecyclerViewAdapter(HashMap<String,Study> items) {
         mValues = new ArrayList<>(items.values());
-        Collections.sort(mValues);
+        Collections.sort(mValues, new Comparator<Study>() {
+            @Override
+            public int compare(Study s1, Study s2) {
+                if (s1.getId() == null || s2.getId() == null) {
+                    return 0;
+                }
+                return s1.getId().compareTo(s2.getId());
+            }
+        });
+
     }
 
     @NonNull

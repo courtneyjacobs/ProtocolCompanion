@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Study implements Comparable<Study> {
+public class Study {
     private String id;
     private String name;
     private Boolean gps;
@@ -129,13 +129,5 @@ public class Study implements Comparable<Study> {
 
     void setFolder(String folder) {
         this.folder = folder;
-    }
-
-    @Override
-    public int compareTo(@NonNull Study study) {
-        if (getId() == null || study.getId() == null) {
-            return 0;
-        }
-        return getId().compareTo(study.getId());
     }
 }

@@ -27,43 +27,43 @@ public class StudyViewModel extends ViewModel {
         fullJSONObject = new JSONObject();
     }
 
-    public void setCurrentStudy(Study currentStudy) {
-        this.currentStudy = currentStudy;
-        setText("id", this.currentStudy.getId());
-        setText("name", this.currentStudy.getName());
-        setText("region", this.currentStudy.getRegion());
-        setText("bucket", this.currentStudy.getBucket());
-        setText("folder", this.currentStudy.getFolder());
-        setSwitch("gps", this.currentStudy.getGps());
-        setSwitch("acceleration", this.currentStudy.getAcceleration());
-        setSwitch("hr", this.currentStudy.getHr());
+    public void setCurrentStudy(Study s) {
+        currentStudy = s;
+        setText("id", currentStudy.getId());
+        setText("name", currentStudy.getName());
+        setText("region", currentStudy.getRegion());
+        setText("bucket", currentStudy.getBucket());
+        setText("folder", currentStudy.getFolder());
+        setSwitch("gps", currentStudy.getGps());
+        setSwitch("acceleration", currentStudy.getAcceleration());
+        setSwitch("hr", currentStudy.getHr());
     }
 
     public void updateCurrentStudy() {
-        this.currentStudy.setName(getText("name").getValue());
-        this.currentStudy.setRegion(getText("region").getValue());
-        this.currentStudy.setBucket(getText("bucket").getValue());
-        this.currentStudy.setFolder(getText("folder").getValue());
-        this.currentStudy.setGps(getSwitch("gps").getValue());
-        this.currentStudy.setAcceleration(getSwitch("acceleration").getValue());
-        this.currentStudy.setHr(getSwitch("hr").getValue());
+        currentStudy.setName(getText("name").getValue());
+        currentStudy.setRegion(getText("region").getValue());
+        currentStudy.setBucket(getText("bucket").getValue());
+        currentStudy.setFolder(getText("folder").getValue());
+        currentStudy.setGps(getSwitch("gps").getValue());
+        currentStudy.setAcceleration(getSwitch("acceleration").getValue());
+        currentStudy.setHr(getSwitch("hr").getValue());
         Study.updateItem(currentStudy);
     }
 
     public void updateAndAddCurrentStudy() {
-        this.currentStudy.setId(getText("id").getValue());
-        this.currentStudy.setName(getText("name").getValue());
-        this.currentStudy.setRegion(getText("region").getValue());
-        this.currentStudy.setBucket(getText("bucket").getValue());
-        this.currentStudy.setFolder(getText("folder").getValue());
-        this.currentStudy.setGps(getSwitch("gps").getValue());
-        this.currentStudy.setAcceleration(getSwitch("acceleration").getValue());
-        this.currentStudy.setHr(getSwitch("hr").getValue());
+        currentStudy.setId(getText("id").getValue());
+        currentStudy.setName(getText("name").getValue());
+        currentStudy.setRegion(getText("region").getValue());
+        currentStudy.setBucket(getText("bucket").getValue());
+        currentStudy.setFolder(getText("folder").getValue());
+        currentStudy.setGps(getSwitch("gps").getValue());
+        currentStudy.setAcceleration(getSwitch("acceleration").getValue());
+        currentStudy.setHr(getSwitch("hr").getValue());
         Study.addNewItem(currentStudy);
     }
 
     public void deleteCurrentStudy() {
-        Study.removeItem(this.currentStudy);
+        Study.removeItem(currentStudy);
     }
 
     public LiveData<String> getText(String name) {
