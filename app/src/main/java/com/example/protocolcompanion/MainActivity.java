@@ -2,6 +2,7 @@ package com.example.protocolcompanion;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +44,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Import studies from JSON file
+        StudyViewModel studyViewModel = new ViewModelProvider(this).get(StudyViewModel.class);
+        File JSONFile = new File(Objects.requireNonNull(getApplicationContext()).getFilesDir(), "protocols.json");
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            if(!JSONFile.createNewFile()) {
+                BufferedReader br = new BufferedReader(new FileReader(JSONFile.getPath()));
+                String currentLine;
+                while ((currentLine = br.readLine()) != null) {
+                    stringBuilder.append(currentLine).append("\n");
+                }
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        studyViewModel.importJSON(stringBuilder.toString());
     }
 
     @Override

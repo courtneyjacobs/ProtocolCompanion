@@ -3,9 +3,10 @@ package com.example.protocolcompanion;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Study {
+public class Study implements Comparable<Study> {
     private String id;
     private String name;
     private Boolean gps;
@@ -15,7 +16,7 @@ public class Study {
     private String bucket;
     private String folder;
 
-    Study(String id, String name, Boolean gps, Boolean acceleration, Boolean hr, String region, String bucket, String folder) {
+    private Study(String id, String name, Boolean gps, Boolean acceleration, Boolean hr, String region, String bucket, String folder) {
         this.id = id;
         this.name = name;
         this.gps = gps;
@@ -37,30 +38,27 @@ public class Study {
         this.folder = " ";
     }
 
-    public static List<Study> ITEMS = new ArrayList<>();
-
-    static {
-        // Add sample item
-        addSampleItem(0);
-
-        /*// Add some sample items.
-        for (int i = 0; i <= 3; i++) {
-        }*/
-    }
-    private static void addSampleItem(int i) {
-        ITEMS.add(new Study(String.valueOf(i), "Default Study", true, false, false, "r" + i, "b1" + i, "f1" + i));
-    }
+    public static HashMap<String, Study> ITEMS = new HashMap<>();
 
     static void addNewItem(Study s) {
-        ITEMS.add(s);
+        ITEMS.put(s.getId(), s);
     }
 
-    static void updateItem(int i, Study s) {
-        ITEMS.set(i, s);
+    static void updateItem(Study s) {
+        ITEMS.remove(s.getId());
+        ITEMS.put(s.getId(), s);
     }
 
-    public static int getListSize() {
+    static void removeItem(Study s) {
+        ITEMS.remove(s.getId());
+    }
+
+    public static int getSize() {
         return ITEMS.size();
+    }
+
+    public static Study getStudy(String id) {
+        return ITEMS.get(id);
     }
 
     @NonNull
@@ -131,5 +129,13 @@ public class Study {
 
     void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    @Override
+    public int compareTo(@NonNull Study study) {
+        if (getId() == null || study.getId() == null) {
+            return 0;
+        }
+        return getId().compareTo(study.getId());
     }
 }

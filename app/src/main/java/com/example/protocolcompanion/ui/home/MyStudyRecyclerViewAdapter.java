@@ -1,9 +1,11 @@
 package com.example.protocolcompanion.ui.home;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,19 @@ import android.widget.TextView;
 import com.example.protocolcompanion.R;
 import com.example.protocolcompanion.Study;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecyclerViewAdapter.ViewHolder> {
 
     private final List<Study> mValues;
 
-    MyStudyRecyclerViewAdapter(List<Study> items) {
-        mValues = items;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    MyStudyRecyclerViewAdapter(HashMap<String,Study> items) {
+        mValues = new ArrayList<>(items.values());
+        Collections.sort(mValues);
     }
 
     @NonNull

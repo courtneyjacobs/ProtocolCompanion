@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Objects;
+import java.util.Iterator;
 
 public class StudyViewModel extends ViewModel {
 
@@ -47,7 +47,7 @@ public class StudyViewModel extends ViewModel {
         this.currentStudy.setGps(getSwitch("gps").getValue());
         this.currentStudy.setAcceleration(getSwitch("acceleration").getValue());
         this.currentStudy.setHr(getSwitch("hr").getValue());
-        Study.updateItem(Integer.parseInt(currentStudy.getId()), currentStudy);
+        Study.updateItem(currentStudy);
     }
 
     public void updateAndAddCurrentStudy() {
@@ -60,6 +60,10 @@ public class StudyViewModel extends ViewModel {
         this.currentStudy.setAcceleration(getSwitch("acceleration").getValue());
         this.currentStudy.setHr(getSwitch("hr").getValue());
         Study.addNewItem(currentStudy);
+    }
+
+    public void deleteCurrentStudy() {
+        Study.removeItem(this.currentStudy);
     }
 
     public LiveData<String> getText(String name) {
@@ -162,23 +166,27 @@ public class StudyViewModel extends ViewModel {
 
     }
 
-    public void importJSON(JSONObject root, String id) {
+    void importJSON(String jsonString) {
+        if (jsonString.isEmpty()) {
+            return;
+        }
         try {
-            JSONObject info = root.getJSONObject(id);
-            mId.setValue(id);
-            mName.setValue(info.get("name").toString());
-            JSONObject storageVals = (JSONObject) info.get("storage");
-            JSONObject probesVals = (JSONObject) info.get("probes");
-            mAcceleration.setValue(Boolean.parseBoolean(probesVals.get("acceleration").toString()));
-            mGPS.setValue(Boolean.parseBoolean(probesVals.get("gps").toString()));
-            mHR.setValue(Boolean.parseBoolean(probesVals.get("hr").toString()));
-            mRegion.setValue(storageVals.get("region").toString());
-            mBucket.setValue(storageVals.get("bucket").toString());
-            mFolder.setValue(storageVals.get("folder").toString());
-            Study s = new Study(Objects.requireNonNull(mId.getValue()), mName.getValue(), mGPS.getValue(),
-                    mAcceleration.getValue(), mHR.getValue(), mRegion.getValue(),
-                    mBucket.getValue(), mFolder.getValue());
-            Study.addNewItem(s);
+            JSONObject root = new JSONObject(jsonString);
+            for (Iterator<String> it = root.keys(); it.hasNext(); ) {
+                String id = it.next();
+                JSONObject info = root.getJSONObject(String.valueOf(id));
+                Study s = new Study(String.valueOf(id));
+                s.setName(info.get("name").toString());
+                JSONObject storageVals = (JSONObject) info.get("storage");
+                JSONObject probesVals = (JSONObject) info.get("probes");
+                s.setAcceleration(Boolean.parseBoolean(probesVals.get("acceleration").toString()));
+                s.setGps(Boolean.parseBoolean(probesVals.get("gps").toString()));
+                s.setHr(Boolean.parseBoolean(probesVals.get("hr").toString()));
+                s.setRegion(storageVals.get("region").toString());
+                s.setBucket(storageVals.get("bucket").toString());
+                s.setFolder(storageVals.get("folder").toString());
+                Study.addNewItem(s);
+            }
         }
         catch (JSONException e) {
             e.printStackTrace();

@@ -40,7 +40,7 @@ public class CreateStudyFragment extends Fragment {
 
         studyViewModel = new ViewModelProvider(requireActivity()).get(StudyViewModel.class);
         // Get next available id by checking length of study list
-        final String nextID = String.valueOf(Study.getListSize());
+        final String nextID = String.valueOf(Study.getSize());
         studyViewModel.setCurrentStudy(new Study(nextID));
 
         View root = inflater.inflate(R.layout.fragment_createstudy, container, false);
