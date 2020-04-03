@@ -20,11 +20,19 @@ public class StudyViewModel extends ViewModel {
     private final MutableLiveData<String> mBucket = new MutableLiveData<>("");
     private final MutableLiveData<String> mFolder = new MutableLiveData<>("");
 
-    public JSONObject fullJSONObject;
+    private JSONObject fullJSONObject;
     private Study currentStudy;
 
     public StudyViewModel() {
         fullJSONObject = new JSONObject();
+    }
+
+    public String getFullJSONString() {
+        return fullJSONObject.toString();
+    }
+
+    void setFullJSONObject(String jsonString) {
+        fullJSONObject = Study.importJSON(jsonString);
     }
 
     public void setCurrentStudy(Study s) {
@@ -39,7 +47,7 @@ public class StudyViewModel extends ViewModel {
         setSwitch("hr", currentStudy.getHr());
     }
 
-    public void updateCurrentStudy() {
+    public void updateCurrentStudy(Boolean add) {
         currentStudy.setName(getText("name").getValue());
         currentStudy.setRegion(getText("region").getValue());
         currentStudy.setBucket(getText("bucket").getValue());
@@ -47,23 +55,27 @@ public class StudyViewModel extends ViewModel {
         currentStudy.setGps(getSwitch("gps").getValue());
         currentStudy.setAcceleration(getSwitch("acceleration").getValue());
         currentStudy.setHr(getSwitch("hr").getValue());
-        Study.updateItem(currentStudy);
-    }
-
-    public void updateAndAddCurrentStudy() {
-        currentStudy.setId(getText("id").getValue());
-        currentStudy.setName(getText("name").getValue());
-        currentStudy.setRegion(getText("region").getValue());
-        currentStudy.setBucket(getText("bucket").getValue());
-        currentStudy.setFolder(getText("folder").getValue());
-        currentStudy.setGps(getSwitch("gps").getValue());
-        currentStudy.setAcceleration(getSwitch("acceleration").getValue());
-        currentStudy.setHr(getSwitch("hr").getValue());
-        Study.addNewItem(currentStudy);
+        try {
+            // Add new study
+            if (add) {
+                JSONObject j = Study.addNewItem(currentStudy);
+                fullJSONObject.put(currentStudy.getId(), j);
+            }
+            // Update study
+            else {
+                JSONObject j = Study.updateItem(currentStudy);
+                fullJSONObject.remove(currentStudy.getId());
+                fullJSONObject.put(currentStudy.getId(), j);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteCurrentStudy() {
         Study.removeItem(currentStudy);
+        fullJSONObject.remove(currentStudy.getId());
     }
 
     public LiveData<String> getText(String name) {
@@ -80,7 +92,7 @@ public class StudyViewModel extends ViewModel {
                 return mFolder;
             default:
                 MutableLiveData<String> mDefault = new MutableLiveData<>();
-                mDefault.setValue("Not available");
+                mDefault.setValue("An error has occurred");
                 return mDefault;
         }
     }
@@ -131,65 +143,6 @@ public class StudyViewModel extends ViewModel {
             case "hr":
                 mHR.setValue(value);
                 break;
-        }
-    }
-
-    // TODO: doesn't include id (that's done when added to fullJSONObject in fragments
-    public JSONObject exportJSON() {
-        // Create JSON objects
-        JSONObject root = new JSONObject();
-        JSONObject storage = new JSONObject();
-        JSONObject probes = new JSONObject();
-
-        try {
-            // Build storage object
-            storage.put("region", mRegion.getValue());
-            storage.put("bucket", mBucket.getValue());
-            storage.put("folder", mFolder.getValue());
-
-
-            // Build probes object
-            probes.put("acceleration", mAcceleration.getValue());
-            probes.put("gps", mGPS.getValue());
-            probes.put("hr", mHR.getValue());
-
-            // Add storage and probes objects as well as the study name to create info object
-            root.put("name", mName.getValue());
-            root.put("storage", storage);
-            root.put("probes",probes);
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return root;
-
-    }
-
-    void importJSON(String jsonString) {
-        if (jsonString.isEmpty()) {
-            return;
-        }
-        try {
-            JSONObject root = new JSONObject(jsonString);
-            for (Iterator<String> it = root.keys(); it.hasNext(); ) {
-                String id = it.next();
-                JSONObject info = root.getJSONObject(String.valueOf(id));
-                Study s = new Study(String.valueOf(id));
-                s.setName(info.get("name").toString());
-                JSONObject storageVals = (JSONObject) info.get("storage");
-                JSONObject probesVals = (JSONObject) info.get("probes");
-                s.setAcceleration(Boolean.parseBoolean(probesVals.get("acceleration").toString()));
-                s.setGps(Boolean.parseBoolean(probesVals.get("gps").toString()));
-                s.setHr(Boolean.parseBoolean(probesVals.get("hr").toString()));
-                s.setRegion(storageVals.get("region").toString());
-                s.setBucket(storageVals.get("bucket").toString());
-                s.setFolder(storageVals.get("folder").toString());
-                Study.addNewItem(s);
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 

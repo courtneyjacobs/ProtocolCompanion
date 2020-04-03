@@ -44,6 +44,9 @@ public class StudyDetailFragment extends Fragment {
         final String currentId = StudyDetailFragmentArgs.fromBundle(getArguments()).getCurrentId();
         studyViewModel.setCurrentStudy(Study.getStudy(currentId));
 
+        // Get JSON file
+        JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
+
         // Get elements
         final Switch GPSSwitch = root.findViewById(R.id.GPSSwitch);
         final Switch accelerationSwitch = root.findViewById(R.id.accelerationSwitch);
@@ -134,27 +137,19 @@ public class StudyDetailFragment extends Fragment {
                 studyViewModel.setSwitch("hr", HRSwitch.isChecked());
                 studyViewModel.setText("name", studyName.getText().toString());
 
-                studyViewModel.updateCurrentStudy();
+                // update study in place without adding a new one
+                studyViewModel.updateCurrentStudy(false);
 
-                // Open file and overwrite changes to the current study
-                JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
-                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
-                try {
-                    studyViewModel.fullJSONObject.remove(currentId);
-                    studyViewModel.fullJSONObject.put(currentId, editedStudyJSONObject);
-                    FileWriter fileWriter = new FileWriter(JSONFile, false);
-                    fileWriter.write(studyViewModel.fullJSONObject.toString());
-                    fileWriter.close();
-                    // Create Toast notification
-                    Context context = getContext();
-                    CharSequence text = "Study successfully saved!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
 
-                } catch (JSONException | IOException e) {
-                    e.printStackTrace();
-                }
+                // Save changes to file
+                updateFile();
+
+                // Create Toast notification
+                Context context = getContext();
+                CharSequence text = "Study successfully saved!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
@@ -170,27 +165,18 @@ public class StudyDetailFragment extends Fragment {
                 studyViewModel.setSwitch("hr", HRSwitch.isChecked());
                 studyViewModel.setText("name", studyName.getText().toString());
 
-                studyViewModel.updateCurrentStudy();
+                // update study in place without adding a new one
+                studyViewModel.updateCurrentStudy(false);
 
-                // Open file and overwrite changes to the current study
-                JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
-                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
-                try {
-                    studyViewModel.fullJSONObject.remove(currentId);
-                    studyViewModel.fullJSONObject.put(currentId, editedStudyJSONObject);
-                    FileWriter fileWriter = new FileWriter(JSONFile, false);
-                    fileWriter.write(studyViewModel.fullJSONObject.toString());
-                    fileWriter.close();
-                    // Create Toast notification
-                    Context context = getContext();
-                    CharSequence text = "Study successfully saved!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                // Save changes to file
+                updateFile();
 
-                } catch (JSONException | IOException e) {
-                    e.printStackTrace();
-                }
+                // Create Toast notification
+                Context context = getContext();
+                CharSequence text = "Study successfully saved!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
@@ -198,32 +184,32 @@ public class StudyDetailFragment extends Fragment {
             public void onClick(View v) {
                 studyViewModel.deleteCurrentStudy();
 
-                // Open file and overwrite changes to the current study
-                JSONObject editedStudyJSONObject = studyViewModel.exportJSON();
-                JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
-                try {
-                    studyViewModel.fullJSONObject.remove(currentId);
-                    FileWriter fileWriter = new FileWriter(JSONFile, false);
-                    fileWriter.write(studyViewModel.fullJSONObject.toString());
-                    fileWriter.close();
-                    // Go back to home
-                    Navigation.findNavController(v).navigate(R.id.nav_home);
-                    // Create Toast notification
-                    Context context = getContext();
-                    CharSequence text = "Study successfully deleted!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                // Save changes to file
+                updateFile();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                // Go back to home
+                Navigation.findNavController(v).navigate(R.id.nav_home);
+                // Create Toast notification
+                Context context = getContext();
+                CharSequence text = "Study successfully deleted!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
-
         return root;
-
-
-
     }
+
+    // Opens file and overwrites changes to the current study
+    private void updateFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(JSONFile, false);
+            fileWriter.write(studyViewModel.getFullJSONString());
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

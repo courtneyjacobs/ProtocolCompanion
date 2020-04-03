@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        studyViewModel.importJSON(stringBuilder.toString());
+        studyViewModel.setFullJSONObject(stringBuilder.toString());
     }
 
     @Override

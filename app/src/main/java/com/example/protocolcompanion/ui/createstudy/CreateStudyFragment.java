@@ -130,6 +130,7 @@ public class CreateStudyFragment extends Fragment {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 File exportFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
 
                 // Set appropriate values in VM
@@ -142,15 +143,15 @@ public class CreateStudyFragment extends Fragment {
                 studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
                 studyViewModel.setSwitch("hr", HRSwitch.isChecked());
 
-                studyViewModel.updateAndAddCurrentStudy();
+                // update and add current study
+                studyViewModel.updateCurrentStudy(true);
 
                 // Open file and overwrite changes
                 try {
-                    JSONObject newStudyJSONObject = studyViewModel.exportJSON();
-                    studyViewModel.fullJSONObject.put(nextID, newStudyJSONObject);
                     FileWriter fileWriter = new FileWriter(exportFile, false);
-                    fileWriter.write(studyViewModel.fullJSONObject.toString());
+                    fileWriter.write(studyViewModel.getFullJSONString());
                     fileWriter.close();
+
                     // Go back to home
                     Navigation.findNavController(v).navigate(R.id.nav_home);
                     // Create Toast notification
@@ -159,9 +160,8 @@ public class CreateStudyFragment extends Fragment {
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-
                 }
-                catch (JSONException | IOException e) {
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
