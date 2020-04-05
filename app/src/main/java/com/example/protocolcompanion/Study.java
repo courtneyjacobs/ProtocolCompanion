@@ -5,12 +5,9 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 public class Study {
     private String id;
@@ -21,17 +18,6 @@ public class Study {
     private String region;
     private String bucket;
     private String folder;
-
-    private Study(String id, String name, Boolean gps, Boolean acceleration, Boolean hr, String region, String bucket, String folder) {
-        this.id = id;
-        this.name = name;
-        this.gps = gps;
-        this.acceleration = acceleration;
-        this.hr = hr;
-        this.region = region;
-        this.bucket = bucket;
-        this.folder = folder;
-    }
 
     public Study(String id) {
         this.id = id;

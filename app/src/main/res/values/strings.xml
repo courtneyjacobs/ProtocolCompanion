@@ -26,6 +26,27 @@
     <string name="deleteButton">Delete Study</string>
     <string name="probesText">Probes</string>
     <string name="remoteText">Remote Storage Settings</string>
+    <string-array name="regions">
+        <item>us-east-1</item>
+        <item>us-east-2</item>
+        <item>us-west-1</item>
+        <item>us-west-2</item>
+        <item>ap-east-1</item>
+        <item>ap-south-1</item>
+        <item>ap-northeast-1</item>
+        <item>ap-northeast-2</item>
+        <item>ap-northeast-3</item>
+        <item>ap-southeast-1</item>
+        <item>ap-southeast-2</item>
+        <item>ca-central-1</item>
+        <item>eu-central-1</item>
+        <item>eu-west-1</item>
+        <item>eu-west-2</item>
+        <item>eu-west-3</item>
+        <item>eu-north-1</item>
+        <item>me-south-1</item>
+        <item>sa-east-1</item>
+    </string-array>
 
 
 

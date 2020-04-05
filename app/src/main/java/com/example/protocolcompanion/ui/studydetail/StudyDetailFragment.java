@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +33,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
-public class StudyDetailFragment extends Fragment {
+public class StudyDetailFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private File JSONFile;
     private StudyViewModel studyViewModel;
@@ -51,7 +54,6 @@ public class StudyDetailFragment extends Fragment {
         final Switch GPSSwitch = root.findViewById(R.id.GPSSwitch);
         final Switch accelerationSwitch = root.findViewById(R.id.accelerationSwitch);
         final Switch HRSwitch = root.findViewById(R.id.HRSwitch);
-        final EditText regionText = root.findViewById(R.id.regionText);
         final EditText bucketText = root.findViewById(R.id.bucketText);
         final EditText folderText = root.findViewById(R.id.folderText);
         Button saveButton = root.findViewById(R.id.saveEditStudyButton);
@@ -59,6 +61,22 @@ public class StudyDetailFragment extends Fragment {
         final TextView studyId = root.findViewById(R.id.studyID);
         Button sendButton = root.findViewById(R.id.sendToWatchButton);
         Button deleteButton = root.findViewById(R.id.deleteButton);
+
+        // from Android Spinner docs at https://developer.android.com/guide/topics/ui/controls/spinner
+        // Set up region spinner
+        final Spinner spinner = root.findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
+                R.array.regions, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        // Specify listener
+        spinner.setOnItemSelectedListener(this);
+        // Get string array from resources
+        final String[] regions = Objects.requireNonNull(getActivity()).getResources().getStringArray(R.array.regions);
+
 
         // Populate initial values (VM -> view)
         // name
@@ -80,7 +98,7 @@ public class StudyDetailFragment extends Fragment {
         studyViewModel.getText("region").observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                regionText.setText(s);
+                spinner.setSelection(adapter.getPosition(s));
             }
         });
         // bucket
@@ -128,8 +146,7 @@ public class StudyDetailFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // Set appropriate values in VM
-                studyViewModel.setText("region", regionText.getText().toString());
+                // Set appropriate values in VM (region is set using spinner methods)
                 studyViewModel.setText("bucket", bucketText.getText().toString());
                 studyViewModel.setText("folder", folderText.getText().toString());
                 studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
@@ -156,8 +173,7 @@ public class StudyDetailFragment extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                // Set appropriate values in VM
-                studyViewModel.setText("region", regionText.getText().toString());
+                // Set appropriate values in VM (region is set using spinner methods)
                 studyViewModel.setText("bucket", bucketText.getText().toString());
                 studyViewModel.setText("folder", folderText.getText().toString());
                 studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
@@ -212,4 +228,16 @@ public class StudyDetailFragment extends Fragment {
         }
     }
 
+    // Methods for spinner
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // Retrieve the selected item
+        String region = String.valueOf(parent.getItemAtPosition(pos));
+        studyViewModel.setText("region", region);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        String region = "us-east-1";
+        studyViewModel.setText("region", region);
+    }
 }

@@ -69,14 +69,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/remoteText" />
 
-            <EditText
-                android:id="@+id/regionText"
+            <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/region"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:entries="@array/regions" />
 
             <EditText
                 android:id="@+id/bucketText"
