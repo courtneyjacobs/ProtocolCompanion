@@ -7,15 +7,26 @@ import androidx.lifecycle.ViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
-
 public class StudyViewModel extends ViewModel {
 
     private final MutableLiveData<String> mName = new MutableLiveData<>("");
     private final MutableLiveData<String> mId = new MutableLiveData<>("0");
-    private final MutableLiveData<Boolean> mGPS = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> mAcceleration = new MutableLiveData<>(false);
-    private final MutableLiveData<Boolean> mHR = new MutableLiveData<>(false);
+
+    private final MutableLiveData<Boolean> mAccelerometer = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mAmbientLight = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mBluetooth = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mBreath = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mCompass = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mGps = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mGyroscope = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mHr = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mLinearAcceleration = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mOffBody = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mPosture = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mPpg = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mSleep = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> mStepCount = new MutableLiveData<>(false);
+
     private final MutableLiveData<String> mRegion = new MutableLiveData<>("");
     private final MutableLiveData<String> mBucket = new MutableLiveData<>("");
     private final MutableLiveData<String> mFolder = new MutableLiveData<>("");
@@ -42,9 +53,21 @@ public class StudyViewModel extends ViewModel {
         setText("region", currentStudy.getRegion());
         setText("bucket", currentStudy.getBucket());
         setText("folder", currentStudy.getFolder());
+
+        setSwitch("accelerometer", currentStudy.getAccelerometer());
+        setSwitch("ambientLight", currentStudy.getAmbientLight());
+        setSwitch("bluetooth", currentStudy.getBluetooth());
+        setSwitch("breath", currentStudy.getBreath());
+        setSwitch("compass", currentStudy.getCompass());
         setSwitch("gps", currentStudy.getGps());
-        setSwitch("acceleration", currentStudy.getAcceleration());
+        setSwitch("gyroscope", currentStudy.getGyroscope());
         setSwitch("hr", currentStudy.getHr());
+        setSwitch("linearAcceleration", currentStudy.getLinearAcceleration());
+        setSwitch("offBody", currentStudy.getOffBody());
+        setSwitch("posture", currentStudy.getPosture());
+        setSwitch("ppg", currentStudy.getPpg());
+        setSwitch("sleep", currentStudy.getSleep());
+        setSwitch("stepCount", currentStudy.getStepCount());
     }
 
     public void updateCurrentStudy(Boolean add) {
@@ -52,9 +75,21 @@ public class StudyViewModel extends ViewModel {
         currentStudy.setRegion(getText("region").getValue());
         currentStudy.setBucket(getText("bucket").getValue());
         currentStudy.setFolder(getText("folder").getValue());
+
+        currentStudy.setAccelerometer(getSwitch("accelerometer").getValue());
+        currentStudy.setAmbientLight(getSwitch("ambientLight").getValue());
+        currentStudy.setBluetooth(getSwitch("bluetooth").getValue());
+        currentStudy.setBreath(getSwitch("breath").getValue());
+        currentStudy.setCompass(getSwitch("compass").getValue());
         currentStudy.setGps(getSwitch("gps").getValue());
-        currentStudy.setAcceleration(getSwitch("acceleration").getValue());
+        currentStudy.setGyroscope(getSwitch("gyroscope").getValue());
         currentStudy.setHr(getSwitch("hr").getValue());
+        currentStudy.setLinearAcceleration(getSwitch("linearAcceleration").getValue());
+        currentStudy.setOffBody(getSwitch("offBody").getValue());
+        currentStudy.setPosture(getSwitch("posture").getValue());
+        currentStudy.setPpg(getSwitch("ppg").getValue());
+        currentStudy.setSleep(getSwitch("sleep").getValue());
+        currentStudy.setStepCount(getSwitch("stepCount").getValue());
         try {
             // Add new study
             if (add) {
@@ -119,12 +154,34 @@ public class StudyViewModel extends ViewModel {
 
     public LiveData<Boolean> getSwitch(String name) {
         switch (name) {
+            case "accelerometer":
+                return mAccelerometer;
+            case "ambientLight":
+                return mAmbientLight;
+            case "bluetooth":
+                return mBluetooth;
+            case "breath":
+                return mBreath;
+            case "compass":
+                return mCompass;
             case "gps":
-                return mGPS;
-            case "acceleration":
-                return mAcceleration;
+                return mGps;
+            case "gyroscope":
+                return mGyroscope;
             case "hr":
-                return mHR;
+                return mHr;
+            case "linearAcceleration":
+                return mLinearAcceleration;
+            case "offBody":
+                return mOffBody;
+            case "posture":
+                return mPosture;
+            case "ppg":
+                return mPpg;
+            case "sleep":
+                return mSleep;
+            case "stepCount":
+                return mStepCount;
             default:
                 MutableLiveData<Boolean> mDefault = new MutableLiveData<>();
                 mDefault.setValue(false);
@@ -134,14 +191,47 @@ public class StudyViewModel extends ViewModel {
 
     public void setSwitch(String name, Boolean value) {
         switch (name) {
-            case "gps":
-                mGPS.setValue(value);
+            case "accelerometer":
+                mAccelerometer.setValue(value);
                 break;
-            case "acceleration":
-                mAcceleration.setValue(value);
+            case "ambientLight":
+                mAmbientLight.setValue(value);
+                break;
+            case "bluetooth":
+                mBluetooth.setValue(value);
+                break;
+            case "breath":
+                mBreath.setValue(value);
+                break;
+            case "compass":
+                mCompass.setValue(value);
+                break;
+            case "gps":
+                mGps.setValue(value);
+                break;
+            case "gyroscope":
+                mGyroscope.setValue(value);
                 break;
             case "hr":
-                mHR.setValue(value);
+                mHr.setValue(value);
+                break;
+            case "linearAcceleration":
+                mLinearAcceleration.setValue(value);
+                break;
+            case "offBody":
+                mOffBody.setValue(value);
+                break;
+            case "posture":
+                mPosture.setValue(value);
+                break;
+            case "ppg":
+                mPpg.setValue(value);
+                break;
+            case "sleep":
+                mSleep.setValue(value);
+                break;
+            case "stepCount":
+                mStepCount.setValue(value);
                 break;
         }
     }

@@ -46,22 +46,88 @@
                 android:text="@string/probesText" />
 
             <Switch
-                android:id="@+id/GPSSwitch"
+                android:id="@+id/accelerometerSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/accelerometer" />
+
+            <Switch
+                android:id="@+id/ambientLightSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ambientLight" />
+
+            <Switch
+                android:id="@+id/bluetoothSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bluetooth" />
+
+            <Switch
+                android:id="@+id/breathSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/breath" />
+
+            <Switch
+                android:id="@+id/compassSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/compass" />
+
+            <Switch
+                android:id="@+id/gpsSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/gps" />
 
             <Switch
-                android:id="@+id/accelerationSwitch"
+                android:id="@+id/gyroscopeSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/acceleration" />
+                android:text="@string/gyroscope" />
 
             <Switch
-                android:id="@+id/HRSwitch"
+                android:id="@+id/hrSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/hr" />
+
+            <Switch
+                android:id="@+id/linearAccelerationSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/linearAcceleration" />
+
+            <Switch
+                android:id="@+id/offBodySwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/offBody" />
+
+            <Switch
+                android:id="@+id/postureSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/posture" />
+
+            <Switch
+                android:id="@+id/ppgSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ppg" />
+
+            <Switch
+                android:id="@+id/sleepSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep" />
+
+            <Switch
+                android:id="@+id/stepCountSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stepCount" />
 
             <TextView
                 android:id="@+id/remoteText"

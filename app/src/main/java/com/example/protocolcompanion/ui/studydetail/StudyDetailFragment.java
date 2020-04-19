@@ -51,9 +51,21 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
         JSONFile = new File(Objects.requireNonNull(getContext()).getFilesDir(), "protocols.json");
 
         // Get elements
-        final Switch GPSSwitch = root.findViewById(R.id.GPSSwitch);
-        final Switch accelerationSwitch = root.findViewById(R.id.accelerationSwitch);
-        final Switch HRSwitch = root.findViewById(R.id.HRSwitch);
+        final Switch accelerometerSwitch = root.findViewById(R.id.accelerometerSwitch);
+        final Switch ambientLightSwitch = root.findViewById(R.id.ambientLightSwitch);
+        final Switch bluetoothSwitch = root.findViewById(R.id.bluetoothSwitch);
+        final Switch breathSwitch = root.findViewById(R.id.breathSwitch);
+        final Switch compassSwitch = root.findViewById(R.id.compassSwitch);
+        final Switch gpsSwitch = root.findViewById(R.id.gpsSwitch);
+        final Switch gyroscopeSwitch = root.findViewById(R.id.gyroscopeSwitch);
+        final Switch hrSwitch = root.findViewById(R.id.hrSwitch);
+        final Switch linearAccelerationSwitch = root.findViewById(R.id.linearAccelerationSwitch);
+        final Switch offBodySwitch = root.findViewById(R.id.offBodySwitch);
+        final Switch postureSwitch = root.findViewById(R.id.postureSwitch);
+        final Switch ppgSwitch = root.findViewById(R.id.ppgSwitch);
+        final Switch sleepSwitch = root.findViewById(R.id.sleepSwitch);
+        final Switch stepCountSwitch = root.findViewById(R.id.stepCountSwitch);
+
         final EditText bucketText = root.findViewById(R.id.bucketText);
         final EditText folderText = root.findViewById(R.id.folderText);
         Button saveButton = root.findViewById(R.id.saveEditStudyButton);
@@ -115,21 +127,66 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
                 folderText.setText(s);
             }
         });
+        // accelerometer
+        studyViewModel.getSwitch("accelerometer").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    accelerometerSwitch.setChecked(b);
+                }
+            }
+        });
+        // ambientLight
+        studyViewModel.getSwitch("ambientLight").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    ambientLightSwitch.setChecked(b);
+                }
+            }
+        });
+        // bluetooth
+        studyViewModel.getSwitch("bluetooth").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    bluetoothSwitch.setChecked(b);
+                }
+            }
+        });
+        // breath
+        studyViewModel.getSwitch("breath").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    breathSwitch.setChecked(b);
+                }
+            }
+        });
+        // compass
+        studyViewModel.getSwitch("compass").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    compassSwitch.setChecked(b);
+                }
+            }
+        });
         // gps
         studyViewModel.getSwitch("gps").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean b) {
                 if(null != b) {
-                    GPSSwitch.setChecked(b);
+                    gpsSwitch.setChecked(b);
                 }
             }
         });
-        // acceleration
-        studyViewModel.getSwitch("acceleration").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        // gyroscope
+        studyViewModel.getSwitch("gyroscope").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean b) {
                 if(null != b) {
-                    accelerationSwitch.setChecked(b);
+                    gyroscopeSwitch.setChecked(b);
                 }
             }
         });
@@ -138,7 +195,61 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onChanged(@Nullable Boolean b) {
                 if(null != b) {
-                    HRSwitch.setChecked(b);
+                    hrSwitch.setChecked(b);
+                }
+            }
+        });
+        // linearAcceleration
+        studyViewModel.getSwitch("linearAcceleration").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    linearAccelerationSwitch.setChecked(b);
+                }
+            }
+        });
+        // offBody
+        studyViewModel.getSwitch("offBody").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    offBodySwitch.setChecked(b);
+                }
+            }
+        });
+        // posture
+        studyViewModel.getSwitch("posture").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    postureSwitch.setChecked(b);
+                }
+            }
+        });
+        // ppg
+        studyViewModel.getSwitch("ppg").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    ppgSwitch.setChecked(b);
+                }
+            }
+        });
+        // sleep
+        studyViewModel.getSwitch("sleep").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    sleepSwitch.setChecked(b);
+                }
+            }
+        });
+        // stepCount
+        studyViewModel.getSwitch("stepCount").observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean b) {
+                if(null != b) {
+                    stepCountSwitch.setChecked(b);
                 }
             }
         });
@@ -149,10 +260,23 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
                 // Set appropriate values in VM (region is set using spinner methods)
                 studyViewModel.setText("bucket", bucketText.getText().toString());
                 studyViewModel.setText("folder", folderText.getText().toString());
-                studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
-                studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
-                studyViewModel.setSwitch("hr", HRSwitch.isChecked());
                 studyViewModel.setText("name", studyName.getText().toString());
+
+                studyViewModel.setSwitch("accelerometer", accelerometerSwitch.isChecked());
+                studyViewModel.setSwitch("ambientLight", ambientLightSwitch.isChecked());
+                studyViewModel.setSwitch("bluetooth", bluetoothSwitch.isChecked());
+                studyViewModel.setSwitch("breath", breathSwitch.isChecked());
+                studyViewModel.setSwitch("compass", compassSwitch.isChecked());
+                studyViewModel.setSwitch("gps", gpsSwitch.isChecked());
+                studyViewModel.setSwitch("gyroscope", gyroscopeSwitch.isChecked());
+                studyViewModel.setSwitch("hr", hrSwitch.isChecked());
+                studyViewModel.setSwitch("linearAcceleration", linearAccelerationSwitch.isChecked());
+                studyViewModel.setSwitch("offBody", offBodySwitch.isChecked());
+                studyViewModel.setSwitch("posture", postureSwitch.isChecked());
+                studyViewModel.setSwitch("ppg", ppgSwitch.isChecked());
+                studyViewModel.setSwitch("sleep", sleepSwitch.isChecked());
+                studyViewModel.setSwitch("stepCount", stepCountSwitch.isChecked());
+
 
                 // update study in place without adding a new one
                 studyViewModel.updateCurrentStudy(false);
@@ -176,10 +300,22 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
                 // Set appropriate values in VM (region is set using spinner methods)
                 studyViewModel.setText("bucket", bucketText.getText().toString());
                 studyViewModel.setText("folder", folderText.getText().toString());
-                studyViewModel.setSwitch("gps", GPSSwitch.isChecked());
-                studyViewModel.setSwitch("acceleration", accelerationSwitch.isChecked());
-                studyViewModel.setSwitch("hr", HRSwitch.isChecked());
                 studyViewModel.setText("name", studyName.getText().toString());
+
+                studyViewModel.setSwitch("accelerometer", accelerometerSwitch.isChecked());
+                studyViewModel.setSwitch("ambientLight", ambientLightSwitch.isChecked());
+                studyViewModel.setSwitch("bluetooth", bluetoothSwitch.isChecked());
+                studyViewModel.setSwitch("breath", breathSwitch.isChecked());
+                studyViewModel.setSwitch("compass", compassSwitch.isChecked());
+                studyViewModel.setSwitch("gps", gpsSwitch.isChecked());
+                studyViewModel.setSwitch("gyroscope", gyroscopeSwitch.isChecked());
+                studyViewModel.setSwitch("hr", hrSwitch.isChecked());
+                studyViewModel.setSwitch("linearAcceleration", linearAccelerationSwitch.isChecked());
+                studyViewModel.setSwitch("offBody", offBodySwitch.isChecked());
+                studyViewModel.setSwitch("posture", postureSwitch.isChecked());
+                studyViewModel.setSwitch("ppg", ppgSwitch.isChecked());
+                studyViewModel.setSwitch("sleep", sleepSwitch.isChecked());
+                studyViewModel.setSwitch("stepCount", stepCountSwitch.isChecked());
 
                 // update study in place without adding a new one
                 studyViewModel.updateCurrentStudy(false);

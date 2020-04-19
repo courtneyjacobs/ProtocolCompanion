@@ -14,9 +14,6 @@
     <string name="region">Region</string>
     <string name="bucket">Bucket</string>
     <string name="folder">Folder</string>
-    <string name="gps">GPS</string>
-    <string name="acceleration">Acceleration</string>
-    <string name="hr">Heart Rate</string>
     <string name="saveNewStudy">Save New Study</string>
     <string name="saveEditStudy">Save Study</string>
     <string name="qrError">Detector failed to set up.</string>
@@ -47,7 +44,22 @@
         <item>me-south-1</item>
         <item>sa-east-1</item>
     </string-array>
-
-
-
+    <string name="accelerometer">Accelerometer</string>
+    <string name="ambientLight">Ambient Light</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="breath">Breath</string>
+    <string name="compass">Compass</string>
+    <string name="gps">GPS</string>
+    <string name="gyroscope">Gyroscope</string>
+    <string name="hr">HR</string>
+    <string name="linearAcceleration">Linear Acceleration</string>
+    <string name="offBody">Off Body</string>
+    <string name="posture">Posture</string>
+    <string name="ppg">PPG</string>
+    <string name="sleep">Sleep</string>
+    <string name="stepCount">Step Count</string>
+    <string name="context_edit">Edit Study</string>
+    <string name="context_delete">Delete Study</string>
+    <string name="context_email">Email Study</string>
+    <string name="context_send">Send to Watch</string>
 </resources>
