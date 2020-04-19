@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
+
 public class StudyViewModel extends ViewModel {
 
     private final MutableLiveData<String> mName = new MutableLiveData<>("");
@@ -44,6 +46,22 @@ public class StudyViewModel extends ViewModel {
 
     void setFullJSONObject(String jsonString) {
         fullJSONObject = Study.importJSON(jsonString);
+    }
+
+    public void appendToFullJSONObject (String jsonString) {
+        try {
+            JSONObject root = Study.importJSON(jsonString);
+            System.out.println("STUDY BEING IMPORTED: " + root);
+            for (Iterator<String> it = root.keys(); it.hasNext(); ) {
+                String id = it.next();
+                JSONObject newStudy = root.getJSONObject(String.valueOf(id));
+                fullJSONObject.put(String.valueOf(id), newStudy);
+                System.out.println("FULL JSON OBJ: " + fullJSONObject);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCurrentStudy(Study s) {

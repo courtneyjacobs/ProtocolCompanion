@@ -2,7 +2,6 @@ package com.example.protocolcompanion.ui.loadstudy;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -14,14 +13,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.protocolcompanion.MainActivity;
+import com.example.protocolcompanion.R;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-
-import com.example.protocolcompanion.R;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -38,6 +36,8 @@ public class LoadStudyFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MainActivity) Objects.requireNonNull(getActivity())).startDownload();
+                Navigation.findNavController(v).navigate(R.id.nav_home);
             }
         });
 

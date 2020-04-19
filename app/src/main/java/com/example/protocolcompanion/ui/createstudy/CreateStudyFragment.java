@@ -49,7 +49,6 @@ public class CreateStudyFragment extends Fragment implements AdapterView.OnItemS
         final String nextID;
         if(Study.getSize() > 0) {
             nextID = String.valueOf(Study.getMaxID() + 1);
-            System.out.println("*** " + nextID);
         }
         else {
             nextID = "0";

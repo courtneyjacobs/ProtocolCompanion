@@ -9,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,7 +32,6 @@ public class HomeFragment extends Fragment {
     private File JSONFile;
     private StudyViewModel studyViewModel;
     private RecyclerView recyclerView;
-    private MyStudyRecyclerViewAdapter myStudyRecyclerViewAdapter;
 
     public HomeFragment() {
     }
@@ -144,7 +141,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void refreshAdapter() {
-        myStudyRecyclerViewAdapter = new MyStudyRecyclerViewAdapter(Study.ITEMS);
+        MyStudyRecyclerViewAdapter myStudyRecyclerViewAdapter = new MyStudyRecyclerViewAdapter(Study.ITEMS);
         recyclerView.setAdapter(myStudyRecyclerViewAdapter);
     }
 

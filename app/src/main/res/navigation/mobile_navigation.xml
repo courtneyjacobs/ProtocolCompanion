@@ -29,7 +29,11 @@
         android:id="@+id/nav_loadstudy"
         android:name="com.example.protocolcompanion.ui.loadstudy.LoadStudyFragment"
         android:label="@string/menu_loadstudy"
-        tools:layout="@layout/fragment_loadstudy" />
+        tools:layout="@layout/fragment_loadstudy" >
+        <action
+            android:id="@+id/loadToHomeAction"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/nav_studydetail"
         android:name="com.example.protocolcompanion.ui.studydetail.StudyDetailFragment"
