@@ -7,8 +7,8 @@
             android:id="@+id/context_delete"
             android:title="@string/context_delete" />
         <item
-            android:id="@+id/context_email"
-            android:title="@string/context_email" />
+            android:id="@+id/context_share"
+            android:title="@string/context_share" />
         <item
             android:id="@+id/context_send"
             android:title="@string/context_send" />

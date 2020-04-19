@@ -1,6 +1,8 @@
 package com.example.protocolcompanion.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -79,26 +81,39 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(Objects.requireNonNull(getView())).navigate(action);
                 return true;
             case R.id.context_delete:
-                studyViewModel.setCurrentStudy(Study.getStudy(itemId));
-                studyViewModel.deleteCurrentStudy();
-                updateFile();
+                updateStudyAndFile(itemId, true);
+
                 // Refresh adapter
                 refreshAdapter();
+
                 // Create Toast notification
                 text = "Study successfully deleted!";
                 toast = Toast.makeText(context, text, duration);
                 toast.show();
                 return true;
-            case R.id.context_email:
-                // TODO: create email
-                updateFile();
-                // Create Toast notification
-                text = "Study successfully emailed!";
-                toast = Toast.makeText(context, text, duration);
-                toast.show();
+            case R.id.context_share:
+                updateStudyAndFile(itemId, false);
+
+                // Get info to send
+                String studyName = Study.getStudy(itemId).getName();
+                String studyContents = studyViewModel.getFullJSONString();
+
+                // Create chooser from tutorialspoint at https://www.tutorialspoint.com/android/android_sending_email.htm
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setData(Uri.parse("mailto:"));
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "[ProtocolCompanion] " + studyName);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, studyContents);
+                try {
+                    startActivity(Intent.createChooser(shareIntent, "Share Study"));
+                    Objects.requireNonNull(getActivity()).finish();
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.context_send:
-                updateFile();
+                updateStudyAndFile(itemId, false);
+
                 // Create Toast notification
                 text = "Study successfully sent to watch!";
                 toast = Toast.makeText(context, text, duration);
@@ -110,7 +125,14 @@ public class HomeFragment extends Fragment {
     }
 
     // Opens file and overwrites changes to the current study
-    private void updateFile() {
+    private void updateStudyAndFile(String id, boolean delete) {
+        studyViewModel.setCurrentStudy(Study.getStudy(id));
+        studyViewModel.updateCurrentStudy(false);
+
+        if(delete) {
+            studyViewModel.deleteCurrentStudy();
+        }
+
         try {
             FileWriter fileWriter = new FileWriter(JSONFile, false);
             fileWriter.write(studyViewModel.getFullJSONString());

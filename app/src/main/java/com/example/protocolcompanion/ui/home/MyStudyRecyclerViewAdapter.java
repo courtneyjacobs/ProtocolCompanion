@@ -97,7 +97,7 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
             contextMenu.setHeaderTitle("Study Actions");
             contextMenu.add(Integer.parseInt(mItem.getId()), R.id.context_edit, 0, "Edit Study");//groupId, itemId, order, title
             contextMenu.add(Integer.parseInt(mItem.getId()), R.id.context_delete, 0, "Delete Study");
-            contextMenu.add(Integer.parseInt(mItem.getId()), R.id.context_email, 0, "Email Study");
+            contextMenu.add(Integer.parseInt(mItem.getId()), R.id.context_share, 0, "Share Study");
             contextMenu.add(Integer.parseInt(mItem.getId()), R.id.context_send, 0, "Send Study to Watch");
         }
     }

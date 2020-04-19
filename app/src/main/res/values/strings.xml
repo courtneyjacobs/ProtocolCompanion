@@ -60,6 +60,6 @@
     <string name="stepCount">Step Count</string>
     <string name="context_edit">Edit Study</string>
     <string name="context_delete">Delete Study</string>
-    <string name="context_email">Email Study</string>
+    <string name="context_share">Share Study</string>
     <string name="context_send">Send to Watch</string>
 </resources>
