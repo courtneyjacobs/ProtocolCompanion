@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
+// This is the activity that is active at all times, and fragments are hosted in this activity.
 public class MainActivity extends AppCompatActivity implements DownloadCallback {
 
     private AppBarConfiguration mAppBarConfiguration;

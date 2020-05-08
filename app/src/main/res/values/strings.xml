@@ -62,7 +62,4 @@
     <string name="context_delete">Delete Study</string>
     <string name="context_share">Share Study</string>
     <string name="context_send">Send to Watch</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

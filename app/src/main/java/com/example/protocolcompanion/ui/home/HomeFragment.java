@@ -27,6 +27,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
+// This defines each element of the study list and determines what to do if the user selects an item
+// in the list (go to its detail page), or long presses an item (display the context menu).
 public class HomeFragment extends Fragment {
 
     private File JSONFile;

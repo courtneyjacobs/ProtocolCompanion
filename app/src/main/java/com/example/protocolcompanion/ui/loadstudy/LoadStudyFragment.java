@@ -23,6 +23,13 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.util.Objects;
 
+// Loads study from website represented by QR code. The following process is followed:
+// 1. Scan QR code to get URL (this QR code will have been previously generated to represent a link to a json
+//    file, on Dropbox for example, with the link configured to download the file upon following the link).
+// 2. Follow URL to download linked file.
+// 3. Parse JSON and import the study.
+// Only step 1 is performed in this fragment currently. The other steps are performed in the Study class,
+// the StudyViewModel, and the MainActivity.
 public class LoadStudyFragment extends Fragment {
 
     // QR Code from tutorial on Mobile Vision API https://codelabs.developers.google.com/codelabs/bar-codes/

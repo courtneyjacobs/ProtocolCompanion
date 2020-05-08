@@ -2,6 +2,10 @@ package com.example.protocolcompanion;
 
 import android.net.NetworkInfo;
 
+/**
+ * All network-related info in this file is from Android docs at https://developer.android.com/training/basics/network-ops/connecting
+ * This interface helps download files from URL.
+ */
 public interface DownloadCallback<T> {
     interface Progress {
         int ERROR = -1;

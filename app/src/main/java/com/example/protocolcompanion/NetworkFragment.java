@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
+ * All network-related info in this file is from Android docs at https://developer.android.com/training/basics/network-ops/connecting
  * Implementation of headless Fragment that runs an AsyncTask to fetch data from the network.
  */
 public class NetworkFragment extends Fragment {

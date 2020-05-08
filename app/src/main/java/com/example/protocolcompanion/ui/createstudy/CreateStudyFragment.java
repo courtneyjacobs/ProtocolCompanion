@@ -36,7 +36,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.UUID;
 
+// Creates a new study and adds it to the study list.
 public class CreateStudyFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private StudyViewModel studyViewModel;
@@ -45,14 +47,8 @@ public class CreateStudyFragment extends Fragment implements AdapterView.OnItemS
                              ViewGroup container, Bundle savedInstanceState) {
 
         studyViewModel = new ViewModelProvider(requireActivity()).get(StudyViewModel.class);
-        // Get next available id by checking length of study list
-        final String nextID;
-        if(Study.getSize() > 0) {
-            nextID = String.valueOf(Study.getMaxID() + 1);
-        }
-        else {
-            nextID = "0";
-        }
+        // Generate new UUID
+        final String nextID = UUID.randomUUID().toString();
         studyViewModel.setCurrentStudy(new Study(nextID));
 
         View root = inflater.inflate(R.layout.fragment_createstudy, container, false);

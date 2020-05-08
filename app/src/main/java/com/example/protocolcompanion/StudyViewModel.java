@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
+// This view model connects the Study class with the views and acts as a controller in the MVC framework.
+// The MutableLiveData objects are for two-way data binding with the fragment views.
+// The fullJSONObject is a JSONObject that represents all loaded studies in local storage (protocols.json)
+// The currentStudy is a Study object that represents the currently selected study, and is updated each
+// time a user selects a study from the list so the selected study's details can be viewed and edited.
 public class StudyViewModel extends ViewModel {
 
     private final MutableLiveData<String> mName = new MutableLiveData<>("");
@@ -48,7 +53,9 @@ public class StudyViewModel extends ViewModel {
         fullJSONObject = Study.importJSON(jsonString);
     }
 
-    public void appendToFullJSONObject (String jsonString) {
+    // Gets a new study from imported json file, imports it using
+    // Study.importJSON and adds to the study list and the fullJSONObject
+    void appendToFullJSONObject(String jsonString) {
         try {
             JSONObject root = Study.importJSON(jsonString);
             System.out.println("STUDY BEING IMPORTED: " + root);

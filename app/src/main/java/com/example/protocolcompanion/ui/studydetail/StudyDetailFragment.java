@@ -33,6 +33,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
+// Allows users to edit or delete a study, and provides the framework for adding functionality to push
+// the study to a watch.
 public class StudyDetailFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private File JSONFile;

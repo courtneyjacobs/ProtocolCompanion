@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This context menu is opened when a user long-presses on any study in the list -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
             android:id="@+id/context_edit"

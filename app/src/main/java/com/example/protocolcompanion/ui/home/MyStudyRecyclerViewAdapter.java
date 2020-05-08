@@ -21,6 +21,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+// RecyclerViewAdapter generates the list of studies from the Study model ITEMS map
+// and allows the studies to be displayed in a list form on the home page.
 public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecyclerViewAdapter.ViewHolder>{
 
     private final List<Study> mValues;

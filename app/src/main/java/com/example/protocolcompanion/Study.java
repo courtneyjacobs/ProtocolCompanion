@@ -7,10 +7,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+// Study class holds all information about a study and provides methods to
+// import, update, and export studies.
 public class Study {
     // Info
     private String id;
