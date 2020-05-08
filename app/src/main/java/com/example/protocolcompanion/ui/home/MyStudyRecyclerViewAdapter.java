@@ -56,7 +56,7 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(holder.mItem.getId());
+        //holder.mIdView.setText(holder.mItem.getId());
         holder.mContentView.setText(mValues.get(position).getName());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +75,14 @@ public class MyStudyRecyclerViewAdapter extends RecyclerView.Adapter<MyStudyRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener  {
         final View mView;
-        final TextView mIdView;
+        //final TextView mIdView;
         final TextView mContentView;
         Study mItem;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+            //mIdView = view.findViewById(R.id.item_number);
             mContentView = view.findViewById(R.id.content);
             view.setOnCreateContextMenuListener(this);
         }
