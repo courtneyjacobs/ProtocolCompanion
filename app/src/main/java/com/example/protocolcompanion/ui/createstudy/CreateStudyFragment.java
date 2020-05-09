@@ -41,6 +41,7 @@ import java.util.UUID;
 // Creates a new study and adds it to the study list.
 public class CreateStudyFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    // Inject the view model
     private StudyViewModel studyViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -306,6 +307,8 @@ public class CreateStudyFragment extends Fragment implements AdapterView.OnItemS
     }
 
     // Methods for spinner
+
+    // when an item is selected, update the value
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // Retrieve the selected item
@@ -313,6 +316,7 @@ public class CreateStudyFragment extends Fragment implements AdapterView.OnItemS
         studyViewModel.setText("region", region);
     }
 
+    // when nothing in the spinner is selected, the default is us-east-1 (Northern Virginia)
     public void onNothingSelected(AdapterView<?> parent) {
         String region = "us-east-1";
         studyViewModel.setText("region", region);

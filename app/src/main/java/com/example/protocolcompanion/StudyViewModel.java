@@ -71,6 +71,7 @@ public class StudyViewModel extends ViewModel {
         }
     }
 
+    // Set the given study to be the current study being viewed/edited.
     public void setCurrentStudy(Study s) {
         currentStudy = s;
         setText("id", currentStudy.getId());
@@ -95,6 +96,8 @@ public class StudyViewModel extends ViewModel {
         setSwitch("stepCount", currentStudy.getStepCount());
     }
 
+    // Update the values of the current study if add is true, or create a new study with the values
+    // of the current study. Updates the fullJSONObject.
     public void updateCurrentStudy(Boolean add) {
         currentStudy.setName(getText("name").getValue());
         currentStudy.setRegion(getText("region").getValue());
@@ -133,6 +136,7 @@ public class StudyViewModel extends ViewModel {
         }
     }
 
+    // Deletes the current study.
     public void deleteCurrentStudy() {
         Study.removeItem(currentStudy);
         fullJSONObject.remove(currentStudy.getId());

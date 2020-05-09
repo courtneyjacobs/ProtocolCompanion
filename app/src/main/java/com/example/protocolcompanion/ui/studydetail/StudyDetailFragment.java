@@ -36,8 +36,9 @@ import java.util.Objects;
 // Allows users to edit or delete a study, and provides the framework for adding functionality to push
 // the study to a watch.
 public class StudyDetailFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
+    // protocols.json
     private File JSONFile;
+    // Inject the view model
     private StudyViewModel studyViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -256,6 +257,7 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        // save changes to study
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -296,6 +298,7 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        // send study to watch
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -334,6 +337,7 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        // delete study
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 studyViewModel.deleteCurrentStudy();
@@ -367,6 +371,8 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
     }
 
     // Methods for spinner
+
+    // when an item is selected, update the value
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // Retrieve the selected item
@@ -374,6 +380,7 @@ public class StudyDetailFragment extends Fragment implements AdapterView.OnItemS
         studyViewModel.setText("region", region);
     }
 
+    // when nothing in the spinner is selected, the default is us-east-1 (Northern Virginia)
     public void onNothingSelected(AdapterView<?> parent) {
         String region = "us-east-1";
         studyViewModel.setText("region", region);

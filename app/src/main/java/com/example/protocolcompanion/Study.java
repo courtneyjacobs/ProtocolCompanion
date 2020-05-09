@@ -60,6 +60,8 @@ public class Study {
         this.folder = "";
     }
 
+    // Map of all studies for the application, loaded from protocols.json
+    // Recycler View Adapter uses this to populate study list
     public static HashMap<String, Study> ITEMS = new HashMap<>();
 
     // Adds new item to study map and returns a JSON object for export
@@ -68,12 +70,16 @@ public class Study {
         return s.exportToJSON();
     }
 
+    // Updates study item in map and returns a JSON object for export
     static JSONObject updateItem(Study s) {
         ITEMS.remove(s.getId());
         ITEMS.put(s.getId(), s);
         return s.exportToJSON();
     }
 
+    // Given the id of a study, give the position in the study list (sort the keys of the map in the
+    // same way that they are sorted for display in the recycler view adapter, the index of the item
+    // will be the same in both lists). Currently sorting by id.
     public static String getItemPosition(String id) {
         ArrayList<String> arr = new ArrayList<>(Study.ITEMS.keySet());
         Collections.sort(arr);
