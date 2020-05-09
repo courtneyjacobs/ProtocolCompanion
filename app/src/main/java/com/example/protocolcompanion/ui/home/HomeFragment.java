@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
                 updateStudyAndFile(itemId, false);
 
                 // Get info to send
+                // TODO: right now it gets the full json string (all studies), if you want it to share only the current study have it just get the currentStudy variable and export it to json
                 String studyName = Study.getStudy(itemId).getName();
                 String studyContents = studyViewModel.getFullJSONString();
 
